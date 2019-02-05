@@ -52,7 +52,7 @@ public class Cliente extends GenericEntity<Integer>{
 	@Getter @Setter
 	private String uf;
 	
-	@Column(name="RG")
+	@Column(name="VALOR_RENDA")
 	@Getter @Setter
 	private BigDecimal valorRenda;	
 

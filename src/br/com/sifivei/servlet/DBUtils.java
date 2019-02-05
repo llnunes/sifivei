@@ -96,7 +96,7 @@ public class DBUtils {
 	}
 
 	public static Cliente findCliente(Connection conn, Integer id) throws SQLException {
-		String sql = "Select * from public.\"Cliente\" c where a.\"ID_CLIENTE\"=?";
+		String sql = "Select * from public.\"Cliente\" c where c.\"ID_CLIENTE\"=?";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setInt(1, id);
@@ -155,26 +155,27 @@ public class DBUtils {
 	
 	public static void insertCliente(Connection conn, Cliente cliente) throws SQLException {
 		String sql = " INSERT INTO public.\"Cliente\" "
-				+ " (\"CPF\", \"NOME\", \"CEP\", \"ENDERECO\", \"MUNICIPIO\", \"RG\", \"UF\", \"VL_RENDA\") "
-				+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?); ";
+				+ " (\"ID_CLIENTE\", \"CPF\", \"NOME\", \"CEP\", \"ENDERECO\", \"MUNICIPIO\", \"RG\", \"UF\", \"VL_RENDA\") "
+				+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?); ";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
-
-		pstm.setString(1, cliente.getCpf());
-		pstm.setString(2, cliente.getNome());
-		pstm.setString(3, cliente.getCep());
-		pstm.setString(4, cliente.getEndereco());
-		pstm.setString(5, cliente.getMunicipio());
-		pstm.setString(6, cliente.getUf());
-		pstm.setString(7, cliente.getRg());
-		pstm.setBigDecimal(8, cliente.getValorRenda());
+		
+		pstm.setInt(1, cliente.getId());
+		pstm.setString(2, cliente.getCpf());
+		pstm.setString(3, cliente.getNome());
+		pstm.setString(4, cliente.getCep());
+		pstm.setString(5, cliente.getEndereco());
+		pstm.setString(6, cliente.getMunicipio());
+		pstm.setString(7, cliente.getUf());
+		pstm.setString(8, cliente.getRg());
+		pstm.setBigDecimal(9, cliente.getValorRenda());
 
 		pstm.executeUpdate();
 	}
 
 	
 	public static void deleteCliente(Connection conn, Integer id) throws SQLException {
-		String sql = "DELETE FROM public.\"Cliente\" WHERE ID_CLIENTE= ?";
+		String sql = "DELETE FROM public.\"Cliente\" WHERE \"ID_CLIENTE\"= ?";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 

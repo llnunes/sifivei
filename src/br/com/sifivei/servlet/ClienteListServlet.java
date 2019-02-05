@@ -17,6 +17,9 @@ import br.com.sifivei.utils.MyUtils;
 
 @WebServlet(urlPatterns = { "/listaClientes" })
 public class ClienteListServlet extends HttpServlet {
+
+	private static final long serialVersionUID = 1L;
+
 	public ClienteListServlet() {
 		super();
 	}

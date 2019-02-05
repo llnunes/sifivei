@@ -10,6 +10,7 @@ import java.util.List;
 
 import br.com.sifivei.beans.Cliente;
 import br.com.sifivei.beans.Usuario;
+import br.com.sifivei.beans.Veiculo;
 
 public class DBUtils {
 
@@ -155,7 +156,7 @@ public class DBUtils {
 	
 	public static void insertCliente(Connection conn, Cliente cliente) throws SQLException {
 		String sql = " INSERT INTO public.\"Cliente\" "
-				+ " (\"ID_CLIENTE\", \"CPF\", \"NOME\", \"CEP\", \"ENDERECO\", \"MUNICIPIO\", \"RG\", \"UF\", \"VL_RENDA\") "
+				+ " (\"ID_CLIENTE\", \"CPF\", \"NOME\", \"CEP\", \"ENDERECO\", \"MUNICIPIO\", \"UF\", \"RG\", \"VL_RENDA\") "
 				+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?); ";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
@@ -182,6 +183,111 @@ public class DBUtils {
 		pstm.setInt(1, id);
 
 		pstm.executeUpdate();
+	}
+
+	public static void deleteVeiculo(Connection conn, Integer id) throws SQLException {
+		String sql = "DELETE FROM public.\"Veiculo\" WHERE \"ID_VEICULO\"= ?";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setInt(1, id);
+
+		pstm.executeUpdate();
+		
+	}
+
+	public static void insertVeiculo(Connection conn, Veiculo veiculo) throws SQLException {
+		String sql = " INSERT INTO public.\"Veiculo\" "
+				+ " (\"ID_VEICULO\", \"PLACA_VEICULO\", \"MODELO\", \"MARCA\", \"COR\", \"CHASSIS\", \"RESTRICOES\") "
+				+ " VALUES (?, ?, ?, ?, ?, ?, ?); ";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		
+		pstm.setInt(1, veiculo.getId());
+		pstm.setString(2, veiculo.getPlacaVeiculo());
+		pstm.setString(3, veiculo.getModelo());
+		pstm.setString(4, veiculo.getMarca());
+		pstm.setString(5, veiculo.getCor());
+		pstm.setString(6, veiculo.getChassis());
+		pstm.setString(7, veiculo.getRestricoes());
+
+		pstm.executeUpdate();		
+	}
+	
+	public static void updateVeiculo(Connection conn, Veiculo veiculo) throws SQLException {
+		String sql = " Update public.\"Veiculo\" set  "
+				+ " \"PLACA_VEICULO\"=?, \"MODELO\"=?, \"MARCA\"=?, \"COR\"=?, \"CHASSIS\"=?, \"RESTRICOES\"=?"
+				+ " where \"ID_VEICULO\"=? ";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setString(1, veiculo.getPlacaVeiculo());
+		pstm.setString(2, veiculo.getModelo());
+		pstm.setString(3, veiculo.getMarca());
+		pstm.setString(4, veiculo.getCor());
+		pstm.setString(5, veiculo.getChassis());
+		pstm.setString(6, veiculo.getRestricoes());		
+		pstm.setInt(7, veiculo.getId());
+		pstm.executeUpdate();
+	}
+
+	public static Veiculo findVeiculo(Connection conn, Integer id) throws SQLException {
+		String sql = "Select * from public.\"Veiculo\" c where c.\"ID_VEICULO\"=?";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, id);
+
+		ResultSet rs = pstm.executeQuery();
+
+		while (rs.next()) {
+			String placaVeiculo = rs.getString("PLACA_VEICULO");
+			String modelo = rs.getString("MODELO");
+			String marca= rs.getString("MARCA");
+			String cor = rs.getString("COR");
+			String chassis = rs.getString("CHASSIS");
+			String restricoes = rs.getString("RESTRICOES");
+			
+			Veiculo veiculo = new Veiculo();
+			veiculo.setId(id);
+			veiculo.setPlacaVeiculo(placaVeiculo);
+			veiculo.setModelo(modelo);
+			veiculo.setMarca(marca);
+			veiculo.setCor(cor);
+			veiculo.setChassis(chassis);
+			veiculo.setRestricoes(restricoes);
+			
+			return veiculo;
+		}
+		return null;
+	}
+
+	public static List<Veiculo> queryVeiculo(Connection conn) throws SQLException {
+		String sql = "Select * from public.\"Veiculo\" v ";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		ResultSet rs = pstm.executeQuery();
+		List<Veiculo> list = new ArrayList<>();
+		while (rs.next()) {
+			Integer id = rs.getInt("ID_VEICULO");
+			String placaVeiculo = rs.getString("PLACA_VEICULO");
+			String modelo = rs.getString("MODELO");
+			String marca= rs.getString("MARCA");
+			String cor = rs.getString("COR");
+			String chassis = rs.getString("CHASSIS");
+			String restricoes = rs.getString("RESTRICOES");
+			
+			Veiculo veiculo = new Veiculo();
+			veiculo.setId(id);
+			veiculo.setPlacaVeiculo(placaVeiculo);
+			veiculo.setModelo(modelo);
+			veiculo.setMarca(marca);
+			veiculo.setCor(cor);
+			veiculo.setChassis(chassis);
+			veiculo.setRestricoes(restricoes);
+			list.add(veiculo);
+		}
+		return list;
 	}
 
 }

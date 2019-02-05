@@ -13,16 +13,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import br.com.sifivei.beans.Cliente;
+import br.com.sifivei.beans.Veiculo;
 import br.com.sifivei.beans.Usuario;
 import br.com.sifivei.utils.MyUtils;
 
-@WebServlet(urlPatterns = { "/listaClientes" })
-public class ClienteListServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/listaVeiculos" })
+public class VeiculoListServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	public ClienteListServlet() {
+	public VeiculoListServlet() {
 		super();
 	}
 
@@ -45,20 +45,20 @@ public class ClienteListServlet extends HttpServlet {
 		Connection conn = MyUtils.getStoredConnection(request);
 
 		String errorString = null;
-		List<Cliente> list = null;
+		List<Veiculo> list = null;
 		try {
-			list = DBUtils.queryCliente(conn);
+			list = DBUtils.queryVeiculo(conn);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			errorString = e.getMessage();
 		}
 		// Store info in request attribute, before forward to views
 		request.setAttribute("errorString", errorString);
-		request.setAttribute("listaClientes", list);
+		request.setAttribute("listaVeiculos", list);
 
 		// Forward to /WEB-INF/views/productListView.jsp
 		RequestDispatcher dispatcher = request.getServletContext()
-				.getRequestDispatcher("/WEB-INF/views/clienteListView.jsp");
+				.getRequestDispatcher("/WEB-INF/views/veiculoListView.jsp");
 		dispatcher.forward(request, response);
 	}
 

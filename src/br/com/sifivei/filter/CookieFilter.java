@@ -46,7 +46,7 @@ public class CookieFilter implements Filter {
 			session.setAttribute("COOKIE_CHECKED", "CHECKED");
 			chain.doFilter(request, response);
 			return;
-		}
+		} 
 
 		// Connection was created in JDBCFilter.
 		Connection conn = MyUtils.getStoredConnection(request);

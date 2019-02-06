@@ -6,9 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import br.com.sifivei.beans.Cliente;
+import br.com.sifivei.beans.ContratoFinanciamento;
 import br.com.sifivei.beans.Usuario;
 import br.com.sifivei.beans.Veiculo;
 
@@ -286,6 +288,158 @@ public class DBUtils {
 			veiculo.setChassis(chassis);
 			veiculo.setRestricoes(restricoes);
 			list.add(veiculo);
+		}
+		return list;
+	}
+
+	/**
+	 * @param conn
+	 * @param financiamento
+	 * @throws SQLException 
+	 */
+	public static void insertFinanciamento(Connection conn, ContratoFinanciamento financiamento) throws SQLException {
+		String sql = " INSERT INTO public.\"ContratoFinanciamento\" "
+				+ " (\"ID_FINANCIAMENTO\", "
+				+ " \"NUM_FINANCIAMENTO\", "
+				+ " \"ID_CLIENTE\", "
+				+ " \"ID_VEICULO\", "
+				+ " \"VALOR_BEM\", "
+				+ " \"VALOR_ENTRADA\", "
+				+ " \"NUMERO_PARCELAS\", "
+				+ " \"DATA_APROVACAO\", "
+				+ " \"DATA_QUITACAO\", "
+				+ " \"TAXA_JUROS\") "
+				+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?); ";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		
+		pstm.setInt(1, financiamento.getId());
+		pstm.setInt(2, financiamento.getNumeroFinanciamento());
+		pstm.setInt(3, financiamento.getCliente().getId());
+		pstm.setInt(4, financiamento.getVeiculo().getId());
+		pstm.setBigDecimal(5, financiamento.getValorBem());
+		pstm.setBigDecimal(6, financiamento.getValorEntrada());
+		pstm.setInt(7, financiamento.getNumeroParcelas());
+		pstm.setDate(8, (java.sql.Date) financiamento.getDataAprovacao());
+		pstm.setDate(9, (java.sql.Date) financiamento.getDataQuitacao());
+		pstm.setDouble(10, financiamento.getTaxaJuros());
+		
+		pstm.executeUpdate();
+	}
+
+	public static void deleteFinanciamento(Connection conn, Integer id) throws SQLException {
+		String sql = "DELETE FROM public.\"ContratoFinanciamento\" WHERE \"ID_FINANCIAMENTO\"= ?";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setInt(1, id);
+
+		pstm.executeUpdate();
+	}
+
+	public static void updateFinanciamento(Connection conn, ContratoFinanciamento financiamento) throws SQLException {
+		String sql = " Update public.\"ContratoFinanciamento\" set  "
+				+ " \"NUM_FINANCIAMENTO\"=?, "
+				+ "	\"ID_CLIENTE\"=?, "
+				+ "	\"ID_VEICULO\"=?, "
+				+ "	\"VALOR_BEM\"=?, "
+				+ "	\"VALOR_ENTRADA\"=?, "
+				+ "	\"NUMERO_PARCELAS\"=?, "
+				+ "	\"DATA_APROVACAO\"=?, "
+				+ "	\"DATA_QUITACAO\"=?, "
+				+ "	\"TAXA_JUROS\"=?"
+				+ " where \"ID_FINANCIAMENTO\"=? ";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		
+		pstm.setInt(1, financiamento.getNumeroFinanciamento());
+		pstm.setInt(2, financiamento.getCliente().getId());
+		pstm.setInt(3, financiamento.getVeiculo().getId());
+		pstm.setBigDecimal(4, financiamento.getValorBem());
+		pstm.setBigDecimal(5, financiamento.getValorEntrada());
+		pstm.setInt(6, financiamento.getNumeroParcelas());
+		pstm.setDate(7, (java.sql.Date) financiamento.getDataAprovacao());
+		pstm.setDate(8, (java.sql.Date) financiamento.getDataQuitacao());
+		pstm.setDouble(9, financiamento.getTaxaJuros());		
+		pstm.setInt(10, financiamento.getId());
+		pstm.executeUpdate();
+	}
+
+	public static ContratoFinanciamento findFinanciamento(Connection conn, Integer id) throws SQLException {
+		String sql = "Select * from public.\"ContratoFinanciamento\" c where c.\"ID_FINANCIAMENTO\"=?";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, id);
+
+		ResultSet rs = pstm.executeQuery();
+		
+		while (rs.next()) {
+			Integer numFinanciamento = rs.getInt("NUM_FINANCIAMENTO");
+			Integer clienteId = rs.getInt("ID_CLIENTE");
+			Integer veiculoId= rs.getInt("ID_VEICULO");
+			BigDecimal valorBem = rs.getBigDecimal("VALOR_BEM");
+			BigDecimal valorEntrada = rs.getBigDecimal("VALOR_ENTRADA");
+			Integer numParcelas = rs.getInt("NUMERO_PARCELAS");
+			Date dataAprovacao = rs.getDate("DATA_APROVACAO");
+			Date dataQuitacao = rs.getDate("DATA_QUITACAO");
+			Double taxaJuros = rs.getDouble("TAXA_JUROS");
+			
+			ContratoFinanciamento financiamento = new ContratoFinanciamento();
+			financiamento.setId(id);
+			financiamento.setNumeroFinanciamento(numFinanciamento);
+			Cliente cliente = new Cliente();
+			cliente.setId(clienteId);
+			financiamento.setCliente(cliente);
+			Veiculo veiculo = new Veiculo();
+			veiculo.setId(veiculoId);
+			financiamento.setVeiculo(veiculo);
+			financiamento.setValorBem(valorBem);
+			financiamento.setValorEntrada(valorEntrada);
+			financiamento.setNumeroParcelas(numParcelas);
+			financiamento.setDataAprovacao(dataAprovacao);
+			financiamento.setDataQuitacao(dataQuitacao);
+			financiamento.setTaxaJuros(taxaJuros);
+			
+			return financiamento;
+		}
+		return null;
+	}
+
+	public static List<ContratoFinanciamento> queryFinanciamento(Connection conn) throws SQLException {
+		String sql = "Select * from public.\"ContratoFinanciamento\" v ";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		ResultSet rs = pstm.executeQuery();
+		List<ContratoFinanciamento> list = new ArrayList<>();
+		while (rs.next()) {
+			Integer id = rs.getInt("ID_FINANCIAMENTO");
+			Integer numFinanciamento = rs.getInt("NUM_FINANCIAMENTO");
+			Integer clienteId = rs.getInt("ID_CLIENTE");
+			Integer veiculoId= rs.getInt("ID_VEICULO");
+			BigDecimal valorBem = rs.getBigDecimal("VALOR_BEM");
+			BigDecimal valorEntrada = rs.getBigDecimal("VALOR_ENTRADA");
+			Integer numParcelas = rs.getInt("NUMERO_PARCELAS");
+			Date dataAprovacao = rs.getDate("DATA_APROVACAO");
+			Date dataQuitacao = rs.getDate("DATA_QUITACAO");
+			Double taxaJuros = rs.getDouble("TAXA_JUROS");
+			
+			ContratoFinanciamento financiamento = new ContratoFinanciamento();
+			financiamento.setId(id);
+			financiamento.setNumeroFinanciamento(numFinanciamento);
+			Cliente cliente = new Cliente();
+			cliente.setId(clienteId);
+			financiamento.setCliente(cliente);
+			Veiculo veiculo = new Veiculo();
+			veiculo.setId(veiculoId);
+			financiamento.setVeiculo(veiculo);
+			financiamento.setValorBem(valorBem);
+			financiamento.setValorEntrada(valorEntrada);
+			financiamento.setNumeroParcelas(numParcelas);
+			financiamento.setDataAprovacao(dataAprovacao);
+			financiamento.setDataQuitacao(dataQuitacao);
+			financiamento.setTaxaJuros(taxaJuros);
+			list.add(financiamento);
 		}
 		return list;
 	}

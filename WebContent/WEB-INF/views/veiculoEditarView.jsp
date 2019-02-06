@@ -19,11 +19,7 @@
       <c:if test="${not empty veiculo}">
          <form method="POST" action="${pageContext.request.contextPath}/editarVeiculo">
             <input type="hidden" name="id" value="${veiculo.id}" />
-            <table border="0">
-               	<tr>
-	               <td>ID</td>
-	               <td><input type="text" name="id" value="${veiculo.id}" /></td>
-	            </tr>            
+            <table border="0">                          
 	            <tr>
 	               <td>Placa Veículo</td>
 	               <td><input type="text" name="placaVeiculo" value="${veiculo.placaVeiculo}" /></td>

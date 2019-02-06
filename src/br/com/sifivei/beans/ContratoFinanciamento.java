@@ -17,7 +17,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name="Veiculo")
+@Table(name="ContratoFinanciamento")
 public class ContratoFinanciamento extends GenericEntity<Integer>{
 
 	private static final long serialVersionUID = -1626890941409935512L;
@@ -34,10 +34,12 @@ public class ContratoFinanciamento extends GenericEntity<Integer>{
 	
 	@JoinColumn(referencedColumnName="ID_CLIENTE", name="ID_CLIENTE")
 	@ManyToOne
+	@Getter @Setter
 	private Cliente cliente;
 	
 	@JoinColumn(referencedColumnName="ID_VEICULO", name="ID_VEICULO")
 	@OneToOne(mappedBy="veiculo")
+	@Getter @Setter
 	private Veiculo veiculo;
 	
 	@Column(name="VALOR_BEM")

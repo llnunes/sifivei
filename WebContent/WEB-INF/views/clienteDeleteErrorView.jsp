@@ -10,15 +10,15 @@
  
  <body>
  
-    <jsp:include page="_header.jsp"></jsp:include>
-    <jsp:include page="_menu.jsp"></jsp:include>
+    <jsp:include page="../template/_header.jsp"></jsp:include>
+    <jsp:include page="../template/_menu.jsp"></jsp:include>
     
     <h3>Remover Cliente</h3>
     
     <p style="color: red;">${errorString}</p>
     <a href="listaClientes">Lista de Clientes</a>
     
-    <jsp:include page="_footer.jsp"></jsp:include>
+    <jsp:include page="../template/_footer.jsp"></jsp:include>
     
  </body>
 </html>

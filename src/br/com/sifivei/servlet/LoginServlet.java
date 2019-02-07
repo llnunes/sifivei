@@ -31,7 +31,7 @@ public class LoginServlet extends HttpServlet {
 		// Forward to /WEB-INF/views/loginView.jsp
 		// (Users can not access directly into JSP pages placed in WEB-INF)
 		RequestDispatcher dispatcher //
-				= this.getServletContext().getRequestDispatcher("/WEB-INF/views/loginView.jsp");
+				= this.getServletContext().getRequestDispatcher("/WEB-INF/views/login.jsp");
 
 		dispatcher.forward(request, response);
 
@@ -82,7 +82,7 @@ public class LoginServlet extends HttpServlet {
 
 			// Forward to /WEB-INF/views/login.jsp
 			RequestDispatcher dispatcher //
-					= this.getServletContext().getRequestDispatcher("/WEB-INF/views/loginView.jsp");
+					= this.getServletContext().getRequestDispatcher("/WEB-INF/views/login.jsp");
 
 			dispatcher.forward(request, response);
 		}

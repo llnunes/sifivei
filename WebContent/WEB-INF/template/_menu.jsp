@@ -9,9 +9,9 @@
    |
    <a href="${pageContext.request.contextPath}/logoff">Logoff</a>
    |
-   <a href="${pageContext.request.contextPath}/userInfo">Informações do Usuário</a>
+   <a href="<%=request.getContextPath()%>/Controller?command=Usuario">Informações do Usuário</a>
    |
-   <a href="${pageContext.request.contextPath}/listaClientes">Lista de Clientes</a>
+   <a href="<%=request.getContextPath()%>/Controller?command=ListarClientes">Lista de Clientes</a>
    |
    <a href="${pageContext.request.contextPath}/listaVeiculos">Lista de Veiculos</a>
    |

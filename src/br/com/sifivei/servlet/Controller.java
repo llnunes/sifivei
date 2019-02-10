@@ -23,7 +23,7 @@ public class Controller extends HttpServlet {
         Command comando = null;
 
         try {
-            comando = (Command) Class.forName("commands." + request.getParameter("command")).newInstance();
+        	comando = (Command) Class.forName("commands." + request.getParameter("command")).newInstance();
         } catch (InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -1,30 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-  pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-  <head>
-     <meta charset="UTF-8">
-     <title>Home Page</title>
-  </head>
-  <body>
- 
-     <jsp:include page="../template/_header.jsp"></jsp:include>
-     <jsp:include page="../template/_menu.jsp"></jsp:include>
-    
-      <h3>Home Page</h3>
-      
-      Sistema De Financiamentos de Veiculos.  <br><br>
-      <b>As seguintes fun√ß√µes est√£o dispon√≠veis:</b>
-      <ul>
-         <li>Login</li>
-         <li>Storing user information in cookies</li>
-         <li>Lista de Clientes</li>
-         <li>Cadastro de Clientes</li>
-         <li>Edi√ß√£o de Clientes</li>
-         <li>Exclus√£o de Clientes</li>
-      </ul>
- 
-     <jsp:include page="../template/_footer.jsp"></jsp:include>
- 
-  </body>
-</html>
+<jsp:include page="../template/_header_views.jsp"></jsp:include>
+
+<div class="container">
+	<div class="row ">			
+		<h3>Home Page</h3>
+
+		Sistema De Financiamentos de Veiculos. <br>
+		<br> <b>As seguintes funÁıes est„o disponÌveis:</b>
+		<ul>
+			<li>Login</li>
+			<li>Storing user information in cookies</li>
+			<li>Lista de Clientes</li>
+			<li>Cadastro de Clientes</li>
+			<li>EdiÁ„o de Clientes</li>
+			<li>Exclus„o de Clientes</li>
+		</ul>
+		
+	</div>		
+</div>
+<jsp:include page="../template/_footer.jsp"></jsp:include>

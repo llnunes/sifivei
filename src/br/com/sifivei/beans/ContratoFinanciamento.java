@@ -37,8 +37,7 @@ public class ContratoFinanciamento extends GenericEntity<Integer>{
 	@Getter @Setter
 	private Cliente cliente;
 	
-	@JoinColumn(referencedColumnName="ID_VEICULO", name="ID_VEICULO")
-	@OneToOne(mappedBy="veiculo")
+	@JoinColumn(referencedColumnName="ID_VEICULO", name="ID_VEICULO")	
 	@Getter @Setter
 	private Veiculo veiculo;
 	

@@ -36,7 +36,7 @@ public class Cliente extends GenericEntity<Integer>{
 	@Getter @Setter
 	private String rg;
 
-	@Column(name="cep")
+	@Column(name="CEP")
 	@Getter @Setter
 	private String cep;
 	
@@ -52,7 +52,7 @@ public class Cliente extends GenericEntity<Integer>{
 	@Getter @Setter
 	private String uf;
 	
-	@Column(name="VALOR_RENDA")
+	@Column(name="VL_RENDA")
 	@Getter @Setter
 	private BigDecimal valorRenda;	
 

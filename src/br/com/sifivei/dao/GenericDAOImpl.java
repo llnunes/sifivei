@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceUnitUtil;
@@ -38,11 +39,15 @@ public abstract class GenericDAOImpl<E extends GenericEntity<K>, K extends Seria
 	@Override
 	public K salvar(@NonNull E entity) throws DAOException {
 		try {
+			EntityTransaction tx = null;
+			tx = getEntityManager().getTransaction();
+		    tx.begin();
 			if (entity.getId() == null) {
 				getEntityManager().persist(entity);
 			} else {
 				getEntityManager().merge(entity);
 			}
+			tx.commit();			
 			return entity.getId();
 		} catch (Exception ex) {
 			throw new DAOException(ex.getMessage(), ex);

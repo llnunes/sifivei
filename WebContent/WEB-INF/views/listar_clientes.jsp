@@ -10,7 +10,7 @@
 			<label>Lista de Clientes</label>
 		</div>
 		<div class="panel-body">
-
+			
 			<div class="table-responsive">
 				<table border="1" cellpadding="5" cellspacing="1">
 					<tr>
@@ -33,6 +33,9 @@
 							<td>${cliente.municipio}</td>
 							<td>${cliente.uf}</td>
 							<td>${cliente.valorRenda}</td>
+							<td>
+								<a href="<%=request.getContextPath()%>/Controller?command=AdicionarCliente" >Editar</a>
+							</td>						
 						</tr>
 					</c:forEach>
 				</table>
@@ -40,6 +43,6 @@
 		</div>
 	</div>
 </div>
-<a href="<%=request.getContextPath()%>/views/cadastrar_clientes.jsp" >Novo Cliente</a>
+<a href="<%=request.getContextPath()%>/Controller?command=AdicionarCliente" >Novo Cliente</a>
 
 <jsp:include page="../template/_footer.jsp"></jsp:include>

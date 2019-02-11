@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import commands.Command;
+import br.com.sifivei.commands.Command;
 
 @WebServlet("/Controller")
 public class Controller extends HttpServlet {
@@ -23,7 +23,7 @@ public class Controller extends HttpServlet {
         Command comando = null;
 
         try {
-        	comando = (Command) Class.forName("commands." + request.getParameter("command")).newInstance();
+        	comando = (Command) Class.forName("br.com.sifivei.commands." + request.getParameter("command")).newInstance();
         } catch (InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }

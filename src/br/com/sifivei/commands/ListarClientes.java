@@ -1,4 +1,4 @@
-package commands;
+package br.com.sifivei.commands;
 
 import java.io.IOException;
 import java.util.List;

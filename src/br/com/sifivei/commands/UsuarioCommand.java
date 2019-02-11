@@ -1,4 +1,4 @@
-package commands;
+package br.com.sifivei.commands;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class Usuario implements Command {
+public class UsuarioCommand implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
@@ -19,7 +19,7 @@ public class Usuario implements Command {
 
 			HttpSession httpSession = request.getSession(true);
 
-			Usuario usuario = (Usuario) httpSession.getAttribute("loginedUser");
+			UsuarioCommand usuario = (UsuarioCommand) httpSession.getAttribute("loginedUser");
 			httpSession.setAttribute("usuario", usuario);
 
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/userInfo.jsp");

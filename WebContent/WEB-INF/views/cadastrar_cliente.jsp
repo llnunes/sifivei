@@ -10,9 +10,8 @@
 		<div class="panel-body">
            
  				<form method="POST"
-					action="<%=request.getContextPath()%>/Controller?command=CadastroCliente">
+					action="<%=request.getContextPath()%>/Controller?command=CadastrarCliente">
 					
-		        ID: <input name="id" class="form-control" required placeholder="Preencha este campo." /> <br/>
 		        Nome: <input name="nome" class="form-control" required placeholder="Preencha este campo." /> <br/>
 	            CPF: <input name="cpf" class="form-control" required placeholder="Preencha este campo." /><br/>
 	            RG: <input name="rg" class="form-control" required placeholder="Preencha este campo."/><br/>

@@ -1,4 +1,4 @@
-package commands;
+package br.com.sifivei.commands;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -14,12 +15,13 @@ import lombok.Setter;
 
 @Entity
 @Table(name="Cliente")
+@SequenceGenerator(name = "clientes_id_seq", sequenceName = "clientes_id_seq")
 public class Cliente extends GenericEntity<Integer>{
 
 	private static final long serialVersionUID = 7444501212723332642L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "clientes_id_seq")
 	@Column(name="ID_CLIENTE")
 	@Getter @Setter
 	private Integer id;

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.sifivei.beans.Cliente;
-import br.com.sifivei.dao.ClienteDAOImpl;
+import br.com.sifivei.dao.ClienteDAO;
 import br.com.sifivei.exceptions.DAOException;
 
 public class CadastrarCliente implements Command{
@@ -17,7 +17,7 @@ public class CadastrarCliente implements Command{
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		
-		//String id = (String) request.getParameter("id");
+		String id = (String) request.getParameter("id");
         String cpf = (String) request.getParameter("cpf");
         String nome = (String) request.getParameter("nome");
         String rg = (String) request.getParameter("rg");
@@ -29,7 +29,9 @@ public class CadastrarCliente implements Command{
         BigDecimal valorRenda = new BigDecimal(vlr);
        
         Cliente cliente = new Cliente();
-        //cliente.setId(Integer.parseInt(id));
+        if(id != null) {
+        	cliente.setId(Integer.parseInt(id));
+        }
         cliente.setCpf(cpf);
         cliente.setNome(nome);
         cliente.setRg(rg);
@@ -42,7 +44,7 @@ public class CadastrarCliente implements Command{
         String errorString = null;
         
         try {
-            ClienteDAOImpl clienteDAO = ClienteDAOImpl.getInstance();
+            ClienteDAO clienteDAO = ClienteDAO.getInstance();
             clienteDAO.salvar(cliente);            
         } catch (DAOException e) {
         	errorString = e.getMessage();

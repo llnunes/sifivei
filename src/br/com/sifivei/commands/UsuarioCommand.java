@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import br.com.sifivei.beans.Usuario;
+
 public class UsuarioCommand implements Command {
 
 	@Override
@@ -19,7 +21,7 @@ public class UsuarioCommand implements Command {
 
 			HttpSession httpSession = request.getSession(true);
 
-			UsuarioCommand usuario = (UsuarioCommand) httpSession.getAttribute("loginedUser");
+			Usuario usuario = (Usuario) httpSession.getAttribute("loginedUser");
 			httpSession.setAttribute("usuario", usuario);
 
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/userInfo.jsp");

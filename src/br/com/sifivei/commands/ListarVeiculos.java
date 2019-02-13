@@ -8,28 +8,28 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.sifivei.beans.Cliente;
-import br.com.sifivei.dao.ClienteDAO;
+import br.com.sifivei.beans.Veiculo;
+import br.com.sifivei.dao.VeiculoDAO;
 
-public class ListarClientes implements Command{
+public class ListarVeiculos implements Command{
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		String errorString = null;
-		List<Cliente> listaClientes = null;
+		List<Veiculo> listaVeiculos = null;
 		
-		ClienteDAO clienteDAO = ClienteDAO.getInstance();
+		VeiculoDAO veiculoDAO = VeiculoDAO.getInstance();
 		try {
-			listaClientes = clienteDAO.pesquisarClientes();
+			listaVeiculos = veiculoDAO.pesquisarVeiculos();
 		} catch (Exception e) {
 			errorString = e.getMessage();
 		}		
 	
 		request.setAttribute("errorString", errorString);
-		request.setAttribute("listaClientes", listaClientes);
+		request.setAttribute("listaVeiculos", listaVeiculos);
 	
 		RequestDispatcher dispatcher = request.getServletContext()
-				.getRequestDispatcher("/WEB-INF/views/listar_clientes.jsp");
+				.getRequestDispatcher("/WEB-INF/views/listar_veiculos.jsp");
 		try {
 			dispatcher.forward(request, response);
 		} catch (ServletException | IOException e) {			

@@ -5,17 +5,15 @@
  
    <a href="${pageContext.request.contextPath}/">Home</a>
    |
-   <a href="${pageContext.request.contextPath}/login">Login</a>
-   |
-   <a href="${pageContext.request.contextPath}/logoff">Logoff</a>
+   <a href="<%=request.getContextPath()%>/Controller?command=Logout">Logoff</a>
    |
    <a href="<%=request.getContextPath()%>/Controller?command=UsuarioCommand">Informações do Usuário</a>
    |
    <a href="<%=request.getContextPath()%>/Controller?command=ListarClientes">Lista de Clientes</a>
    |
-   <a href="${pageContext.request.contextPath}/listaVeiculos">Lista de Veiculos</a>
+   <a href="<%=request.getContextPath()%>/Controller?command=ListarVeiculos">Lista de Veiculos</a>
    |
-   <a href="${pageContext.request.contextPath}/listaFinanciamentos">Lista de Financiamentos</a>
+   <a href="<%=request.getContextPath()%>/Controller?command=ListarFinanciamentos">Lista de Financiamentos</a>
    | 
     
 </div>  

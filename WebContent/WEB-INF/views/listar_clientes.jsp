@@ -34,7 +34,10 @@
 							<td>${cliente.uf}</td>
 							<td>${cliente.valorRenda}</td>
 							<td>
-								<a href="<%=request.getContextPath()%>/Controller?command=AdicionarCliente" >Editar</a>
+								<a href="<%=request.getContextPath()%>/Controller?command=AdicionarCliente&id=${cliente.id}" >Editar</a>
+							</td>
+							<td>
+								<a href="<%=request.getContextPath()%>/Controller?command=ExcluirCliente&id=${cliente.id}" >Remover</a>
 							</td>						
 						</tr>
 					</c:forEach>

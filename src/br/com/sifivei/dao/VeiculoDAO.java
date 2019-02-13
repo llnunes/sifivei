@@ -8,25 +8,25 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-import br.com.sifivei.beans.Cliente;
+import br.com.sifivei.beans.Veiculo;
 import br.com.sifivei.exceptions.DAOException;
 
-public class ClienteDAO implements Serializable{
+public class VeiculoDAO implements Serializable{
+
+	private static final long serialVersionUID = -5634183222911828171L;
 	
-	private static final long serialVersionUID = -2251977790764366750L;
-			
-	private static ClienteDAO instance;
+	private static VeiculoDAO instance;
 	protected EntityManager entityManager;
 
-	public static ClienteDAO getInstance() {
+	public static VeiculoDAO getInstance() {
 		if (instance == null) {
-			instance = new ClienteDAO();
+			instance = new VeiculoDAO();
 		}
 
 		return instance;
 	}
 
-	public ClienteDAO() {
+	public VeiculoDAO() {
 		entityManager = getEntityManager();
 	}
 
@@ -40,16 +40,16 @@ public class ClienteDAO implements Serializable{
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Cliente> pesquisarClientes() throws DAOException{
+	public List<Veiculo> pesquisarVeiculos() throws DAOException{
 		try {
-			Query q = entityManager.createQuery("SELECT c FROM Cliente c");
+			Query q = entityManager.createQuery("SELECT c FROM Veiculo c");
 			return q.getResultList();
 		} catch (Exception e) {
 			throw new DAOException(e);
 		}		
 	}
 
-	public void salvar(Cliente cliente) throws DAOException{
+	public void salvar(Veiculo cliente) throws DAOException{
 		try {
 			entityManager.getTransaction().begin();
 			if (cliente.getId() == null) {
@@ -65,17 +65,17 @@ public class ClienteDAO implements Serializable{
 		}
 	}
 
-	public Cliente consultarPorId(Integer id) throws DAOException{
-		Query q = entityManager.createQuery("SELECT c FROM Cliente c WHERE c.id = :id");
+	public Veiculo consultarPorId(Integer id) throws DAOException{
+		Query q = entityManager.createQuery("SELECT c FROM Veiculo c WHERE c.id = :id");
 		q.setParameter("id", id);
 		q.setMaxResults(1);
-		return (Cliente) q.getSingleResult();
+		return (Veiculo) q.getSingleResult();
 	}
 
 	public void excluir(Integer id) throws DAOException{
 		try {
             entityManager.getTransaction().begin();
-            Cliente cliente = entityManager.find(Cliente.class, id);
+            Veiculo cliente = entityManager.find(Veiculo.class, id);
             entityManager.remove(cliente);
             entityManager.getTransaction().commit();
         } catch (Exception ex) {

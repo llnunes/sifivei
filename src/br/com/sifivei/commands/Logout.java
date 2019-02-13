@@ -19,7 +19,7 @@ public class Logout implements Command {
 			if (!session.isNew()) {
 
 				session.invalidate();
-				response.sendRedirect("/WEB-INF/views/login.jsp");
+				response.sendRedirect("login.jsp");
 
 			}
 		} catch (IOException ex) {

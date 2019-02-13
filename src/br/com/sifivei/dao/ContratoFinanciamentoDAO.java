@@ -8,25 +8,25 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-import br.com.sifivei.beans.Cliente;
+import br.com.sifivei.beans.ContratoFinanciamento;
 import br.com.sifivei.exceptions.DAOException;
 
-public class ClienteDAO implements Serializable{
+public class ContratoFinanciamentoDAO implements Serializable{
 	
 	private static final long serialVersionUID = -2251977790764366750L;
 			
-	private static ClienteDAO instance;
+	private static ContratoFinanciamentoDAO instance;
 	protected EntityManager entityManager;
 
-	public static ClienteDAO getInstance() {
+	public static ContratoFinanciamentoDAO getInstance() {
 		if (instance == null) {
-			instance = new ClienteDAO();
+			instance = new ContratoFinanciamentoDAO();
 		}
 
 		return instance;
 	}
 
-	public ClienteDAO() {
+	public ContratoFinanciamentoDAO() {
 		entityManager = getEntityManager();
 	}
 
@@ -40,22 +40,22 @@ public class ClienteDAO implements Serializable{
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Cliente> pesquisarClientes() throws DAOException{
+	public List<ContratoFinanciamento> pesquisarContratoFinanciamentos() throws DAOException{
 		try {
-			Query q = entityManager.createQuery("SELECT c FROM Cliente c");
+			Query q = entityManager.createQuery("SELECT c FROM ContratoFinanciamento c");
 			return q.getResultList();
 		} catch (Exception e) {
 			throw new DAOException(e);
 		}		
 	}
 
-	public void salvar(Cliente cliente) throws DAOException{
+	public void salvar(ContratoFinanciamento financiamento) throws DAOException{
 		try {
 			entityManager.getTransaction().begin();
-			if (cliente.getId() == null) {
-				entityManager.persist(cliente);
+			if (financiamento.getId() == null) {
+				entityManager.persist(financiamento);
 			} else {
-				entityManager.merge(cliente);
+				entityManager.merge(financiamento);
 			}
 			entityManager.getTransaction().commit();
 
@@ -65,18 +65,18 @@ public class ClienteDAO implements Serializable{
 		}
 	}
 
-	public Cliente consultarPorId(Integer id) throws DAOException{
-		Query q = entityManager.createQuery("SELECT c FROM Cliente c WHERE c.id = :id");
+	public ContratoFinanciamento consultarPorId(Integer id) throws DAOException{
+		Query q = entityManager.createQuery("SELECT c FROM ContratoFinanciamento c WHERE c.id = :id");
 		q.setParameter("id", id);
 		q.setMaxResults(1);
-		return (Cliente) q.getSingleResult();
+		return (ContratoFinanciamento) q.getSingleResult();
 	}
 
 	public void excluir(Integer id) throws DAOException{
 		try {
             entityManager.getTransaction().begin();
-            Cliente cliente = entityManager.find(Cliente.class, id);
-            entityManager.remove(cliente);
+            ContratoFinanciamento financiamento = entityManager.find(ContratoFinanciamento.class, id);
+            entityManager.remove(financiamento);
             entityManager.getTransaction().commit();
         } catch (Exception ex) {
             entityManager.getTransaction().rollback();

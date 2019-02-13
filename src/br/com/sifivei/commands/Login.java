@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import br.com.sifivei.beans.Usuario;
-import br.com.sifivei.dao.UsuarioDAOImpl;
+import br.com.sifivei.dao.UsuarioDAO;
 import br.com.sifivei.exceptions.DAOException;
 
 public class Login implements Command {
@@ -24,7 +24,7 @@ public class Login implements Command {
             String login = request.getParameter("login");
             String senha = request.getParameter("senha");
 
-            Usuario usuario = UsuarioDAOImpl.getInstance().login(login, senha);
+            Usuario usuario = UsuarioDAO.getInstance().login(login, senha);
             
             if (usuario != null) {
                 HttpSession httpSession = request.getSession(true);

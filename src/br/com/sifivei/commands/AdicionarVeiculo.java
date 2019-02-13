@@ -7,35 +7,36 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.sifivei.beans.Cliente;
-import br.com.sifivei.dao.ClienteDAO;
+import br.com.sifivei.beans.Veiculo;
+import br.com.sifivei.dao.VeiculoDAO;
 import br.com.sifivei.exceptions.DAOException;
 
-public class AdicionarCliente implements Command{
+public class AdicionarVeiculo implements Command{
+
 	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
-		String caminho = "/WEB-INF/views/cadastrar_cliente.jsp";
+		String caminho = "/WEB-INF/views/cadastrar_veiculo.jsp";
 		
 		String param = request.getParameter("id");
 		
 		if(param != null) {
 			Integer id = Integer.parseInt(param);
-	    			
-			Cliente cliente = null;
+	    		
+			Veiculo veiculo = null;
 			 
 	        String errorString = null;
 	 
 	        try {
-	            ClienteDAO clienteDAO = ClienteDAO.getInstance();
-	            cliente = clienteDAO.consultarPorId(id);
+	            VeiculoDAO veiculoDAO = VeiculoDAO.getInstance();
+	            veiculo = veiculoDAO.consultarPorId(id);
 	        } catch (DAOException e) {
 	        	errorString = e.getMessage();
 			}
 	 
-	        if (errorString != null && cliente == null) {
+	        if (errorString != null && veiculo == null) {
 	            try {
-					response.sendRedirect(request.getServletPath() + "/Controller?command=ListarClientes");
+					response.sendRedirect(request.getServletPath() + "/Controller?command=ListarVeiculos");
 				} catch (IOException e) {
 					errorString = e.getMessage();
 				}
@@ -43,7 +44,7 @@ public class AdicionarCliente implements Command{
 	        }
 	 
 	        request.setAttribute("errorString", errorString);
-	        request.setAttribute("cliente", cliente);	        		
+	        request.setAttribute("veiculo", veiculo);	        		
 		}
 		
 		RequestDispatcher dispatcher = request.getServletContext()

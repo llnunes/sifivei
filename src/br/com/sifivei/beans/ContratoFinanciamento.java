@@ -10,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -18,12 +18,13 @@ import lombok.Setter;
 
 @Entity
 @Table(name="ContratoFinanciamento")
+@SequenceGenerator(name = "financiamentos_id_seq", sequenceName = "financiamentos_id_seq")
 public class ContratoFinanciamento extends GenericEntity<Integer>{
 
 	private static final long serialVersionUID = -1626890941409935512L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "financiamentos_id_seq")
 	@Column(name="ID_FINANCIAMENTO")
 	@Getter @Setter
 	private Integer id;
@@ -37,7 +38,8 @@ public class ContratoFinanciamento extends GenericEntity<Integer>{
 	@Getter @Setter
 	private Cliente cliente;
 	
-	@JoinColumn(referencedColumnName="ID_VEICULO", name="ID_VEICULO")	
+	@JoinColumn(referencedColumnName="ID_VEICULO", name="ID_VEICULO")
+	@ManyToOne
 	@Getter @Setter
 	private Veiculo veiculo;
 	
